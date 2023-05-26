@@ -1,19 +1,14 @@
-graph LR;
-  A(Molecule Structure) --> B(DFT_energy);
-  A --> C(DFT_HOMO);
-  A --> D(DFT_LUMO);
-  A --> E(DFT_dipoleTot);
-  A --> F(rdkit_MolWt);
-  A --> G(rdkit_NumValenceElectrons);
-  A --> H(rdkit_NumAromaticRings);
-  A --> I(rdkit_NumAliphaticRings);
-  A --> J(DFTMD_vol);
-  A --> K(rdkit_HeavyAtomMolWt);
-  A --> L(rdkit_MaxAbsPartialCharge);
-  A --> M(rdkit_MolLogP);
-  F --> N(JR_BoilingPoint);
-  G --> N;
-  M --> N;
-  F --> O(JR_EnthalpyForm);
-  G --> O;
-  M --> O;
+sequenceDiagram
+    participant U as User
+    participant C as Client
+    participant A as Authorization Server
+    participant R as Resource Server
+
+    U->>C: 1. ログイン要求
+    C->>A: 2. 認可コードリクエスト
+    A->>U: 3. 認可コード付きリダイレクト
+    U->>C: 4. 認可コードをクライアントへ
+    C->>A: 5. 認可コードとクライアント情報を送信
+    A->>C: 6. アクセストークンとリフレッシュトークンを発行
+    C->>R: 7. アクセストークンを使用してリソースへアクセス
+    R->>C: 8. 要求されたリソースを返す
